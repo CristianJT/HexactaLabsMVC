@@ -1,0 +1,55 @@
+﻿@model HxLabsMVCApplication.Models.MovieIndexModel
+
+@{
+    ViewBag.Title = "Movies";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Películas</h2>
+<br />
+
+
+@if (User.Identity.IsAuthenticated)
+{
+   <table >
+        <thead>
+            <tr>
+                <th style="display: none;"></th>
+                <th>Name</th>
+                <th>Release Date</th>
+                <th>Runtime</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var movie in Model.Movies)
+            {
+                <tr>
+                    <td style="display: none;">@Html.HiddenFor(m => movie.Id)</td>
+                    <td>
+                        <img src="@movie.CoverLink" style="height: 30px;" />
+                        <span id="movie_Name">@movie.Name</span>
+                    </td>
+                    <td>@Html.DisplayFor(m => movie.ReleaseDate, "Date")</td>
+                    <td>@movie.Runtime</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <div>
+        @foreach (var movie in Model.Movies)
+        {
+            <div>
+                <div >
+                    <img data-src="holder.js/400x300" src="@movie.CoverLink" >
+
+                    <div >
+                        <p ><strong>@movie.Name</strong></p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}

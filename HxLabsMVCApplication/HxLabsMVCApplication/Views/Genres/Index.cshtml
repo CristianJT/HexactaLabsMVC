@@ -1,0 +1,22 @@
+﻿@model HxLabsMVCApplication.Models.GenreIndexModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<div>
+    @foreach (var genre in Model.Genres)
+    {
+        <div>
+            <div>
+
+                <div>
+                    <p><strong>@genre.Name</strong></p>
+                </div>
+            </div>
+        </div>
+    }
+</div>
