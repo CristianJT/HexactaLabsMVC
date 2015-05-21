@@ -16,9 +16,7 @@ namespace HxLabsMVCApplication.Controllers
 
             var context = new MoviesContext();
 
-            model.Genres = from g in context.Genres
-                           orderby g.Name ascending
-                           select g;
+            model.Genres = context.Genres.OrderBy(g => g.Name).ToList();
 
             return View(model);
         }

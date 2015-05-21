@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using HxLabsMVCApplication.Models;
 using Entities;
 using System.Data;
+using System.Data.Entity;
 
 
 namespace HxLabsMVCApplication.Controllers
@@ -52,5 +53,40 @@ namespace HxLabsMVCApplication.Controllers
             return this.View("Create", new MovieCreateModel() { ViewAction = ViewAction.Create, Movie = movie });
         }
 
+        /*EDITAR*/
+
+        public ActionResult Edit(Guid id)
+        {
+            var movie = context.Movies.Find(id);
+
+            return this.View("Create", new MovieCreateModel() { ViewAction = ViewAction.Edit, Movie = movie });
+        }
+
+        [HttpPost]
+        public ActionResult Edit(Movie movie)
+        {
+            if (this.ModelState.IsValid)
+            {
+                var movieDb = context.Movies.Find(movie.Id);
+
+                movieDb.Name = movie.Name;
+                movieDb.ReleaseDate = movie.ReleaseDate;
+                movieDb.Runtime = movie.Runtime;
+                movieDb.CoverLink = movie.CoverLink;
+                movieDb.Plot = movie.Plot;
+
+                //context.Entry(movieDb).State = EntityState.Modified;
+                context.SaveChanges();
+
+                this.TempData["successmessage"] = "Se ha actualizado exitosamente la pelicula: " + movie.Name;
+
+                return this.RedirectToAction("Index");
+            }
+            else
+            {
+                return this.View("Create", new MovieCreateModel() { ViewAction = ViewAction.Edit, Movie = movie });
+            }
+
+        }
     }
 }

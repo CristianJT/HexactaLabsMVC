@@ -27,13 +27,13 @@
             {
                 <tr>
                     <td style="display: none;">@Html.HiddenFor(m => movie.Id)</td>
-                    <td>
+                    <td class="col-md-6">
                         <img src="@movie.CoverLink" style="height: 30px;" />
                         <span id="movie_Name">@movie.Name</span>
                     </td>
-                    <td>@Html.DisplayFor(m => movie.ReleaseDate, "Date")</td>
-                    <td>@movie.Runtime</td>
-                    <td>@Html.ActionLink("Editar", "Create", new { id = movie.Id })</td>
+                    <td class="col-md-2">@Html.DisplayFor(m => movie.ReleaseDate, "Date")</td>
+                    <td class="col-md-2">@movie.Runtime</td>
+                    <td>@Html.ActionLink("Editar", "Edit", new { id = movie.Id })</td>
                 </tr>
             }
         </tbody>
@@ -42,6 +42,7 @@
 else
 {
     <div>
+        
         @foreach (var movie in Model.Movies)
         {
             <div>
