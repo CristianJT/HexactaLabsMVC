@@ -17,10 +17,17 @@ namespace HxLabsMVCApplication.Controllers
 
             var context = new MoviesContext();
 
-            model.Movies = context.Movies.OrderBy().ToList();
+            model.Movies = context.Movies.OrderBy(x => x.Name).ToList();
+            //Devuelve la lista ordenada alfabeticamente
          
-
             return View(model);
         }
+
+        //PUNTO 2 (NO FUNCIONA)
+        //public ActionResult Create()
+        //{
+        //    return this.View(new MoviesCreateModel() { ViewAction = ViewAction.Create, Movie = new Movie()});
+        //}
+
     }
 }
