@@ -33,6 +33,7 @@
                     </td>
                     <td>@Html.DisplayFor(m => movie.ReleaseDate, "Date")</td>
                     <td>@movie.Runtime</td>
+                    <td>@Html.ActionLink("Editar", "Create", new { id = movie.Id })</td>
                 </tr>
             }
         </tbody>
