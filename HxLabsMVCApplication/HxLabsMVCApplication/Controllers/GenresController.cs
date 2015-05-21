@@ -16,7 +16,9 @@ namespace HxLabsMVCApplication.Controllers
 
             var context = new MoviesContext();
 
-            model.Genres = context.Genres.ToList();
+            model.Genres = from g in context.Genres
+                           orderby g.Name ascending
+                           select g;
 
             return View(model);
         }

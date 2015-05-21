@@ -24,5 +24,8 @@ namespace HxLabsMVCApplication.Models
 
         public IDbSet<Genre> Genres { get; set; }
         public IDbSet<Movie> Movies { get; set; }
+
+
+
     }
 }
