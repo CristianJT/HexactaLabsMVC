@@ -40,7 +40,9 @@ namespace HxLabsMVCApplication.Controllers
                 {
                     context.Movies.Add(movie);
                     context.SaveChanges();
+                    this.TempData["successmessage"] = "Se ha agregado exitosamente la pelicula: " + movie.Name;
                     return RedirectToAction("Index");
+                    
                 }
             }
             catch (DataException)
