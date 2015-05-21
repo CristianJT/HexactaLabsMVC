@@ -258,6 +258,13 @@
       <Project>{3010c2f5-ae0e-4534-9fcf-7fbf040b677e}</Project>
       <Name>Entities</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Services Layer\ServicesLayer.csproj">
+      <Project>{d9f95f08-7b7c-4fa9-b95b-86ab27f985ec}</Project>
+      <Name>ServicesLayer</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

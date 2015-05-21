@@ -28,7 +28,7 @@ namespace HxLabsMVCApplication.Controllers
         /*CREAR*/
         public ActionResult Create()
         {
-            return this.View("Create", new MovieCreateModel() { ViewAction = ViewAction.Create, Movie = new Movie() });
+            return this.View("Create", new MovieCreateModel() { ViewAction = ViewAction.Create, Movie = new Movie(), Genres });
         }
 
         [HttpPost]

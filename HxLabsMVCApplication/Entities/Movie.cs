@@ -29,6 +29,8 @@ namespace Entities
         [Required]
         [Range(30, 300)]
         public int? Runtime { get; set; }
+
+        public IEnumerable<Guid> SelectedGenres { get; set; }
         
 
     }

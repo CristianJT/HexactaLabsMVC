@@ -11,5 +11,7 @@ namespace HxLabsMVCApplication.Models
         public ViewAction ViewAction { get; set; }
 
         public Movie Movie { get; set; }
+
+        public IEnumerable<GenreIndexModel> Genres { get; set; }
     }
 }
