@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Entities;
 using HxLabsMVCApplication.Models;
+using Data;
 
 namespace HxLabsMVCApplication.Controllers
 {

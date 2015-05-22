@@ -34,6 +34,7 @@
                     <td class="col-md-2">@Html.DisplayFor(m => movie.ReleaseDate, "Date")</td>
                     <td class="col-md-2">@movie.Runtime</td>
                     <td>@Html.ActionLink("Editar", "Edit", new { id = movie.Id })</td>
+                    <td>@Html.ActionLink("Eliminar", "Delete", new { id = movie.Id })</td>
                 </tr>
             }
         </tbody>
@@ -57,3 +58,4 @@ else
         }
     </div>
 }
+<br />

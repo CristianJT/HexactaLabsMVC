@@ -1,0 +1,31 @@
+﻿@model Entities.Movie
+
+<p class="error">@ViewBag.ErrorMessage</p>
+<h3>Esta seguro que desea eliminar la película?</h3>
+<div>
+    <h4>@Html.DisplayFor(model => model.Name)</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>@Html.DisplayNameFor(model => model.ReleaseDate)</dt>
+        <dd>@Html.DisplayFor(model => model.ReleaseDate)</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.Plot)</dt>
+        <dd>@Html.DisplayFor(model => model.Plot)</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.CoverLink)</dt>
+        <dd>@Html.DisplayFor(model => model.CoverLink)</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.Runtime)</dt>
+        <dd>@Html.DisplayFor(model => model.Runtime)</dd>
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Eliminar" class="btn btn-primary" /> |
+            @Html.ActionLink("Volver", "Index")
+        </div>
+        <br />
+    }
+</div>

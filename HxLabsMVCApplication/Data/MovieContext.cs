@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Entities;
+using HxLabsMVCApplication.App_Start;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
-using System.Linq;
-using System.Web;
-using HxLabsMVCApplication.App_Start;
-using Entities;
 
-namespace HxLabsMVCApplication.Models
+namespace Data
 {
     public class MoviesContext : DbContext
     {
@@ -24,8 +20,5 @@ namespace HxLabsMVCApplication.Models
 
         public IDbSet<Genre> Genres { get; set; }
         public IDbSet<Movie> Movies { get; set; }
-
-
-
     }
 }

@@ -1,92 +1,98 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using HxLabsMVCApplication.Models;
 using Entities;
 using System.Data;
-using System.Data.Entity;
+using Data;
+using Services;
 
 
 namespace HxLabsMVCApplication.Controllers
 {
     public class MoviesController : Controller
     {
-        /*Declaro una variable de tipo MoviesContext*/
-        private MoviesContext context = new MoviesContext();
+        private MoviesService movies = new MoviesService();
 
+        /*OBTENER TODAS LAS PELÍCULAS ORDENADAS*/
         public ActionResult Index()
         {
             var model = new MovieIndexModel();
-
-            model.Movies = context.Movies.OrderBy(x => x.Name).ToList();
-         
+            model.Movies = movies.GetAll();
             return View(model);
         }
+
 
         /*CREAR*/
         public ActionResult Create()
         {
-            return this.View("Create", new MovieCreateModel() { ViewAction = ViewAction.Create, Movie = new Movie(), Genres });
+            return View("Create", new MovieCreateModel() { ViewAction = ViewAction.Create, Movie = new Movie() });
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Name, ReleaseDate, Plot, CoverLink, RunTime")]Movie movie)
         {
-            try
+            if (ModelState.IsValid)
             {
-                if (ModelState.IsValid)
-                {
-                    context.Movies.Add(movie);
-                    context.SaveChanges();
-                    this.TempData["successmessage"] = "Se ha agregado exitosamente la pelicula: " + movie.Name;
-                    return RedirectToAction("Index");
-                    
-                }
+                movies.Create(movie);
+                TempData["successmessage"] = "Se ha agregado exitosamente la pelicula: " + movie.Name;
+                return RedirectToAction("Index");
             }
-            catch (DataException)
-            {
-                ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
-            }
-            return this.View("Create", new MovieCreateModel() { ViewAction = ViewAction.Create, Movie = movie });
+            else
+                return View("Create", new MovieCreateModel() { ViewAction = ViewAction.Create, Movie = movie });
         }
 
-        /*EDITAR*/
 
+        /*EDITAR*/
         public ActionResult Edit(Guid id)
         {
-            var movie = context.Movies.Find(id);
-
-            return this.View("Create", new MovieCreateModel() { ViewAction = ViewAction.Edit, Movie = movie });
+            Movie movie = movies.Get(id);
+            return View("Create", new MovieCreateModel() { ViewAction = ViewAction.Edit, Movie = movie });
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Edit(Movie movie)
         {
             if (this.ModelState.IsValid)
             {
-                var movieDb = context.Movies.Find(movie.Id);
-
-                movieDb.Name = movie.Name;
-                movieDb.ReleaseDate = movie.ReleaseDate;
-                movieDb.Runtime = movie.Runtime;
-                movieDb.CoverLink = movie.CoverLink;
-                movieDb.Plot = movie.Plot;
-
-                //context.Entry(movieDb).State = EntityState.Modified;
-                context.SaveChanges();
-
-                this.TempData["successmessage"] = "Se ha actualizado exitosamente la pelicula: " + movie.Name;
-
-                return this.RedirectToAction("Index");
+                var m = movies.Update(movie, movie.Id);
+                TempData["successmessage"] = "Se ha actualizado exitosamente la pelicula: " + m.Name;
+                return RedirectToAction("Index");                            
             }
             else
+                return View("Create", new MovieCreateModel() { ViewAction = ViewAction.Edit, Movie = movie });
+        }
+
+
+        /*ELIMINAR*/
+        public ActionResult Delete(Guid id, bool? saveChangesError = false)
+        {
+            if (saveChangesError.GetValueOrDefault())
             {
-                return this.View("Create", new MovieCreateModel() { ViewAction = ViewAction.Edit, Movie = movie });
+                ViewBag.ErrorMessage = "ERROR al eliminar la película";
             }
 
+            Movie movie = movies.Get(id);
+            return View(movie);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(Guid id)
+        {
+            try
+            {
+                Movie movieToDelete = movies.Get(id);
+                movies.Delete(movieToDelete);
+                TempData["successmessage"] = "Se ha eliminado exitosamente la pelicula: " + movieToDelete.Name;
+            }
+            catch (DataException)
+            {
+                return RedirectToAction("Delete", new { id = id, saveChangesError = true });
+            }
+            return RedirectToAction("Index");
         }
     }
 }

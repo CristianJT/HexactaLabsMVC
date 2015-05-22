@@ -237,6 +237,7 @@
     <Content Include="Views\Movies\Index.cshtml" />
     <Content Include="Views\Genres\Index.cshtml" />
     <Content Include="Views\Movies\Create.cshtml" />
+    <Content Include="Views\Movies\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -261,6 +262,10 @@
     <ProjectReference Include="..\Services Layer\ServicesLayer.csproj">
       <Project>{d9f95f08-7b7c-4fa9-b95b-86ab27f985ec}</Project>
       <Name>ServicesLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Services\Services.csproj">
+      <Project>{1bebd386-fc5d-461e-aebd-49c453cc3ba2}</Project>
+      <Name>Services</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

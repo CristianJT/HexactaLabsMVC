@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using HxLabsMVCApplication.Models;
 using Entities;
+using Data;
 
 namespace HxLabsMVCApplication.App_Start
 {
