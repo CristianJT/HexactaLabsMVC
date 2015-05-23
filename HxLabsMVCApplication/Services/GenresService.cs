@@ -31,6 +31,12 @@ namespace Services
             return g;
         }
 
+        ///*SELECCIONAR UN GENERO*/
+        //public Genre Select( int id)
+        //{
+        //    return context.Genres.Select(id).ToList();
+        //}
+
         /*EDITAR UN GENERO*/
         public Genre Update(Genre g, int id)
         {

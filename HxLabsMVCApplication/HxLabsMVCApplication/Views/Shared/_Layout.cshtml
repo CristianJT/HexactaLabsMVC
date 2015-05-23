@@ -33,7 +33,7 @@
                         @{var controller = ViewContext.RouteData.Values["controller"].ToString().ToLower();}
                         <li class="@(controller == "home" ? "active" : null)"><a href="@Url.Action("Index", "Home")"><span class="glyphicon glyphicon-home"></span></a></li>
                         <li class="@(controller == "movies" ? "active" : null)"><a href="@Url.Action("Index", "Movies")">Películas</a></li>
-                        <li class="@(controller == "genres" ? "active" : null)"><a href="@Url.Action("Index", "Genres")">Generos</a></li>
+                        <li class="@(controller == "genres" ? "active" : null)"><a href="@Url.Action("Index", "Genres")">Géneros</a></li>
                     </ul>
 
                     <div class="nav navbar-nav navbar-right">

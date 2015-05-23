@@ -18,6 +18,7 @@
             <tr>
                 <th style="display: none;"></th>
                 <th>Name</th>
+                <th>Género</th>
                 <th>Release Date</th>
                 <th>Runtime</th>
             </tr>
@@ -31,8 +32,9 @@
                         <img src="@movie.CoverLink" style="height: 30px;" />
                         <span id="movie_Name">@movie.Name</span>
                     </td>
+                    <td class="col-md-2">@movie.Genre</td>
                     <td class="col-md-2">@Html.DisplayFor(m => movie.ReleaseDate, "Date")</td>
-                    <td class="col-md-2">@movie.Runtime</td>
+                    <td class="col-md-1">@movie.Runtime</td>
                     <td>@Html.ActionLink("Editar", "Edit", new { id = movie.Id })</td>
                     <td>@Html.ActionLink("Eliminar", "Delete", new { id = movie.Id })</td>
                 </tr>

@@ -23,6 +23,14 @@ namespace HxLabsMVCApplication.Controllers
             return View(model);
         }
 
+        ///*OBTENER LISTA DE GENEROS FILTRADA*/
+        //public ActionResult Index()
+        //{
+        //    var model = new GenreIndexModel();
+        //    model.Genres = genres.Select();
+        //    return View(model);
+        //}
+
         /*CREAR*/
         public ActionResult Create()
         {

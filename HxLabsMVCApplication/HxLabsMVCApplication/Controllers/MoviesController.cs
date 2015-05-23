@@ -31,7 +31,7 @@ namespace HxLabsMVCApplication.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Name, ReleaseDate, Plot, CoverLink, RunTime")]Movie movie)
+        public ActionResult Create([Bind(Include = "Name, Genre, ReleaseDate, Plot, CoverLink, RunTime")]Movie movie)
         {
             if (ModelState.IsValid)
             {

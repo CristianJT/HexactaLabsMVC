@@ -13,6 +13,8 @@ namespace Entities
         [StringLength(100)]
         public string Name { get; set; }
 
+        public string Genre { get; set; }
+
         [Required]
         [DataType(DataType.DateTime)]
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
