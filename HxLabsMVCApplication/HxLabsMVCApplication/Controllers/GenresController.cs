@@ -13,9 +13,9 @@ namespace HxLabsMVCApplication.Controllers
 {
     public class GenresController : Controller
     {
-        private GenresService genres = new GenresService();
+        private readonly GenresService genres = new GenresService();
 
-        /*OBTENER TODAS LAS PELÍCULAS ORDENADAS*/
+        /*GET*/
         public ActionResult Index()
         {
             var model = new GenreIndexModel();
@@ -52,7 +52,7 @@ namespace HxLabsMVCApplication.Controllers
         }
 
         /*EDITAR*/
-        public ActionResult Edit(int id)
+        public ActionResult Edit(Guid id)
         {
             Genre genre = genres.Get(id);
             return View("Create", new GenreCreateModel() { ViewAction = ViewAction.Edit, Genre = genre });
@@ -74,20 +74,20 @@ namespace HxLabsMVCApplication.Controllers
 
 
         /*ELIMINAR*/
-        public ActionResult Delete(int id, bool? saveChangesError = false)
+        public ActionResult Delete(Guid id, bool? saveChangesError = false)
         {
             if (saveChangesError.GetValueOrDefault())
             {
                 ViewBag.ErrorMessage = "ERROR al eliminar el género";
             }
 
-            Genre genre= genres.Get(id);
+            Genre genre = genres.Get(id);
             return View(genre);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id)
+        public ActionResult Delete(Guid id)
         {
             try
             {

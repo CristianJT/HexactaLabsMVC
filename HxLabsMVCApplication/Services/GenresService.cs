@@ -17,8 +17,9 @@ namespace Services
         {
             return context.Genres.OrderBy(x => x.Name).ToList();
         }
+
         /*OBTENER UN GENERO*/
-        public Genre Get(int id)
+        public Genre Get(Guid id)
         {
             return context.Genres.Find(id);
         }
@@ -31,14 +32,8 @@ namespace Services
             return g;
         }
 
-        ///*SELECCIONAR UN GENERO*/
-        //public Genre Select( int id)
-        //{
-        //    return context.Genres.Select(id).ToList();
-        //}
-
         /*EDITAR UN GENERO*/
-        public Genre Update(Genre g, int id)
+        public Genre Update(Genre g, Guid id)
         {
             Genre genreCurrent = context.Genres.Find(id);
             if (genreCurrent != null)

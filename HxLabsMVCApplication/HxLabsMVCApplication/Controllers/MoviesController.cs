@@ -6,13 +6,15 @@ using Entities;
 using System.Data;
 using Data;
 using Services;
+using System.Collections.Generic;
 
 
 namespace HxLabsMVCApplication.Controllers
 {
     public class MoviesController : Controller
     {
-        private MoviesService movies = new MoviesService();
+        private readonly MoviesService movies = new MoviesService();
+        private readonly GenresService genres = new GenresService();
 
         /*OBTENER TODAS LAS PELÍCULAS ORDENADAS*/
         public ActionResult Index()
@@ -26,21 +28,32 @@ namespace HxLabsMVCApplication.Controllers
         /*CREAR*/
         public ActionResult Create()
         {
-            return View("Create", new MovieCreateModel() { ViewAction = ViewAction.Create, Movie = new Movie() });
+            return View("Create", new MovieCreateModel() { ViewAction = ViewAction.Create, Movie = new Movie(), Genres = genres.GetAll() });
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Name, Genre, ReleaseDate, Plot, CoverLink, RunTime")]Movie movie)
+        public ActionResult Create(Movie movie, IEnumerable<Guid> selectedGenres)
         {
             if (ModelState.IsValid)
             {
+                if (selectedGenres != null)
+                {
+                    foreach (var selectedGenreId in selectedGenres)
+                    {
+                        Genre genre = genres.Get(selectedGenreId);
+
+                        if (genre != null)
+                            movie.Genres.Add(genre);
+                    }
+                }
+
                 movies.Create(movie);
                 TempData["successmessage"] = "Se ha agregado exitosamente la pelicula: " + movie.Name;
                 return RedirectToAction("Index");
             }
             else
-                return View("Create", new MovieCreateModel() { ViewAction = ViewAction.Create, Movie = movie });
+                return View("Create", new MovieCreateModel() { ViewAction = ViewAction.Create, Movie = movie, Genres = genres.GetAll() });
         }
 
 
@@ -48,7 +61,7 @@ namespace HxLabsMVCApplication.Controllers
         public ActionResult Edit(Guid id)
         {
             Movie movie = movies.Get(id);
-            return View("Create", new MovieCreateModel() { ViewAction = ViewAction.Edit, Movie = movie });
+            return View("Create", new MovieCreateModel() { ViewAction = ViewAction.Edit, Movie = movie, Genres = movie.Genres });
         }
 
         [HttpPost]
