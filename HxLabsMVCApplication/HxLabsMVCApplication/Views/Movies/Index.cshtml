@@ -8,7 +8,13 @@
 <h2>Películas</h2>
 <br />
 
-<div><a href="~/Movies/Create" class="btn btn-primary">Crear Película</a></div> 
+@using (Html.BeginForm())
+{
+    <p class="col-md-offset-2">       
+        <input class="btn btn-default" style="background-color: #e6e6e6" type="submit" value="Buscar pelicula" />
+        @Html.TextBoxFor(model => model.SearchString)       
+    </p>
+}
 <br />
 
 @if (User.Identity.IsAuthenticated)
@@ -58,4 +64,7 @@ else
         }
     </div>
 }
+<br />
+<br />
+<div class="col-md-offset-3"><a href="~/Movies/Create" class="btn btn-primary">Crear Película</a></div>
 <br />

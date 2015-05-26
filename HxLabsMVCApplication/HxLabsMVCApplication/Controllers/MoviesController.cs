@@ -17,13 +17,23 @@ namespace HxLabsMVCApplication.Controllers
         private readonly GenresService genres = new GenresService();
 
         /*OBTENER TODAS LAS PELÍCULAS ORDENADAS*/
-        public ActionResult Index()
+        public ActionResult Index(string SearchString = "")
         {
             var model = new MovieIndexModel();
-            model.Movies = movies.GetAll();
+            if (SearchString == string.Empty)
+            {
+                model.Movies = movies.GetAll();
+            }
+            else
+            {
+                model.Movies = movies.GetAll().Where(m => m.Name.Contains(SearchString));
+            }
+            
+
             return View(model);
         }
 
+       
 
         /*CREAR*/
         public ActionResult Create()
@@ -33,20 +43,20 @@ namespace HxLabsMVCApplication.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Movie movie, IEnumerable<Guid> selectedGenres)
+        public ActionResult Create(Movie movie)
         {
             if (ModelState.IsValid)
             {
-                if (selectedGenres != null)
-                {
-                    foreach (var selectedGenreId in selectedGenres)
-                    {
-                        Genre genre = genres.Get(selectedGenreId);
+                //if (selectedGenres != null)
+                //{
+                //    foreach (var selectedGenreId in selectedGenres)
+                //    {
+                //        Genre genre = genres.Get(selectedGenreId);
 
-                        if (genre != null)
-                            movie.Genres.Add(genre);
-                    }
-                }
+                //        if (genre != null)
+                //            movie.Genres.Add(genre);
+                //    }
+                //}
 
                 movies.Create(movie);
                 TempData["successmessage"] = "Se ha agregado exitosamente la pelicula: " + movie.Name;

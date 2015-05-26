@@ -13,6 +13,7 @@ namespace HxLabsMVCApplication.Models
             this.Movies = new List<Movie>();
         }
 
+        public string SearchString { get; set; }
         public ViewAction ViewAction { get; set; }
         public IEnumerable<Movie> Movies { get; set; }
     }

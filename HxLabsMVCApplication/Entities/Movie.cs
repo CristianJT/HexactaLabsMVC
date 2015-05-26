@@ -11,6 +11,7 @@ namespace Entities
         {
             this.Genres = new HashSet<Genre>();
         }
+
         [Key]
         public Guid Id { get; set; }
 
@@ -18,17 +19,16 @@ namespace Entities
         [StringLength(100)]
         public string Name { get; set; }
 
-        //[Required]
+        [Required]
         [DataType(DataType.DateTime)]
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? ReleaseDate { get; set; }
-
 
         public string Plot { get; set; }
 
         public string CoverLink { get; set; }
 
-        //[Required]
+        [Required]
         [Range(30, 300)]
         public int? Runtime { get; set; }
 
