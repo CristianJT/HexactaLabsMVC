@@ -27,6 +27,7 @@ namespace Services
         /*CREAR UN GENERO*/
         public Genre Create(Genre g)
         {
+            g.Id = Guid.NewGuid();
             context.Genres.Add(g);
             context.SaveChanges();
             return g;

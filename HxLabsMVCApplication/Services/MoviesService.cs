@@ -26,6 +26,7 @@ namespace Services
         /*CREAR UNA PELÍCULA*/
         public Movie Create(Movie m)
         {
+            m.Id = Guid.NewGuid();
             context.Movies.Add(m);
             context.SaveChanges();
             return m;
