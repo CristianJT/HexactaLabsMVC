@@ -13,12 +13,24 @@ namespace Data
             Database.SetInitializer<MoviesContext>(new ContextInitializer());
         }
 
+        public IDbSet<Genre> Genres { get; set; }
+        public IDbSet<Movie> Movies { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Movie>()
+                .HasMany<Genre>(m => m.Genres)
+                .WithMany(g => g.Movies)
+                .Map(mg =>
+                        {
+                            mg.MapLeftKey("MovieId");
+                            mg.MapRightKey("GenreId");
+                            mg.ToTable("MovieGenre");
+                        });
+
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
         }
 
-        public IDbSet<Genre> Genres { get; set; }
-        public IDbSet<Movie> Movies { get; set; }
+       
     }
 }

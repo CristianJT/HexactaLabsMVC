@@ -11,14 +11,14 @@ namespace Entities
         {
             this.Genres = new HashSet<Genre>();
         }
-
+        [Key]
         public Guid Id { get; set; }
 
         [Required]
         [StringLength(100)]
         public string Name { get; set; }
 
-        [Required]
+        //[Required]
         [DataType(DataType.DateTime)]
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? ReleaseDate { get; set; }
@@ -28,7 +28,7 @@ namespace Entities
 
         public string CoverLink { get; set; }
 
-        [Required]
+        //[Required]
         [Range(30, 300)]
         public int? Runtime { get; set; }
 
