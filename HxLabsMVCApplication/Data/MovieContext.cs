@@ -18,6 +18,8 @@ namespace Data
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+
             modelBuilder.Entity<Movie>()
                 .HasMany<Genre>(m => m.Genres)
                 .WithMany(g => g.Movies)
@@ -28,7 +30,7 @@ namespace Data
                             mg.ToTable("MovieGenre");
                         });
 
-            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+            
         }
 
        

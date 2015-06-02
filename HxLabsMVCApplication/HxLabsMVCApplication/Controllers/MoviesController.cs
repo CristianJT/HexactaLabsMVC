@@ -43,20 +43,20 @@ namespace HxLabsMVCApplication.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Movie movie)
+        public ActionResult Create(Movie movie, ICollection<Guid> selectedGenres)
         {
             if (ModelState.IsValid)
             {
-                //if (selectedGenres != null)
-                //{
-                //    foreach (var selectedGenreId in selectedGenres)
-                //    {
-                //        Genre genre = genres.Get(selectedGenreId);
+                if (selectedGenres != null)
+                {
+                    foreach (var selectedGenreId in selectedGenres)
+                    {
+                        Genre genre = genres.Get(selectedGenreId);
 
-                //        if (genre != null)
-                //            movie.Genres.Add(genre);
-                //    }
-                //}
+                        if (genre != null)
+                            movie.Genres.Add(genre);
+                    }
+                }
 
                 movies.Create(movie);
                 TempData["successmessage"] = "Se ha agregado exitosamente la pelicula: " + movie.Name;
